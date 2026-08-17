@@ -91,6 +91,9 @@ if (VCPKG_TARGET_IS_WINDOWS)
         endif()
     endif()
 else()
+    string(APPEND VCPKG_C_FLAGS " -std=gnu17")
+    set(VCPKG_CXX_FLAGS "${VCPKG_CXX_FLAGS}")
+
     vcpkg_configure_make(
         SOURCE_PATH "${SOURCE_PATH}"
     )

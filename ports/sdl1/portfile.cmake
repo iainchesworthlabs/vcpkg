@@ -65,6 +65,9 @@ else()
         file(CHMOD "${polyfill_scripts}/which" PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE)
     endif()
 
+    string(APPEND VCPKG_C_FLAGS " -std=gnu17")
+    set(VCPKG_CXX_FLAGS "${VCPKG_CXX_FLAGS}")
+
     vcpkg_configure_make(
         SOURCE_PATH "${SOURCE_PATH}"
         OPTIONS

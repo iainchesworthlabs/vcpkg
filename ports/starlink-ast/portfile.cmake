@@ -17,6 +17,11 @@ vcpkg_extract_source_archive(
 )
 file(REMOVE_RECURSE "${SOURCE_PATH}/cminpack")
 
+if(NOT VCPKG_TARGET_IS_WINDOWS OR VCPKG_TARGET_IS_MINGW)
+    string(APPEND VCPKG_C_FLAGS " -std=gnu17")
+    set(VCPKG_CXX_FLAGS "${VCPKG_CXX_FLAGS}")
+endif()
+
 set(CONFIGURE_OPTIONS
     --without-fortran
     --with-external-cminpack

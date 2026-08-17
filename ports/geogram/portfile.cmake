@@ -51,6 +51,15 @@ vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
     "graphics" GEOGRAM_WITH_GRAPHICS
 )
 
+set(geogram_c_standard_options)
+if(NOT VCPKG_TARGET_IS_WINDOWS OR VCPKG_TARGET_IS_MINGW)
+    list(APPEND geogram_c_standard_options
+        -DCMAKE_C_STANDARD=17
+        -DCMAKE_C_STANDARD_REQUIRED=ON
+        -DCMAKE_C_EXTENSIONS=ON
+    )
+endif()
+
 if (VCPKG_LIBRARY_LINKAGE STREQUAL "static")
     set(VORPALINE_BUILD_DYNAMIC FALSE)
     if (VCPKG_TARGET_IS_WINDOWS)
@@ -94,6 +103,7 @@ vcpkg_cmake_configure(
         -DGEOGRAM_USE_SYSTEM_GLFW3=ON
         -DVORPALINE_PLATFORM=${VORPALINE_PLATFORM}
         -DGEOGRAM_WITH_VORPALINE=OFF
+        ${geogram_c_standard_options}
         ${FEATURE_OPTIONS}
 )
 

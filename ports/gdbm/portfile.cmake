@@ -11,6 +11,9 @@ vcpkg_extract_source_archive(
     ARCHIVE "${ARCHIVE}"
 )
 
+string(APPEND VCPKG_C_FLAGS " -std=gnu17")
+set(VCPKG_CXX_FLAGS "${VCPKG_CXX_FLAGS}")
+
 vcpkg_list(SET options)
 
 if("libgdbm-compat" IN_LIST FEATURES)

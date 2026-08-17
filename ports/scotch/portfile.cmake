@@ -30,9 +30,19 @@ vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
         ptscotch    BUILD_PTSCOTCH
 )
 
+set(scotch_c_standard_options)
+if(NOT VCPKG_TARGET_IS_WINDOWS OR VCPKG_TARGET_IS_MINGW)
+    list(APPEND scotch_c_standard_options
+        -DCMAKE_C_STANDARD=17
+        -DCMAKE_C_STANDARD_REQUIRED=ON
+        -DCMAKE_C_EXTENSIONS=ON
+    )
+endif()
+
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS ${FEATURE_OPTIONS}
+        ${scotch_c_standard_options}
         -DBUILD_LIBESMUMPS=OFF
         -DBUILD_LIBSCOTCHMETIS=OFF
         -DTHREADS=ON
